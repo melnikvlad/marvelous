@@ -12,7 +12,7 @@ import okhttp3.Response;
 public final class RequestParamsInterceptor implements Interceptor {
 
     private static final String PUBLIC_KEY = "684b92e67198efc6069c95cc7ed10954";
-    private static final int TS = 21;
+    private static final String TS = "21";
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -21,7 +21,9 @@ public final class RequestParamsInterceptor implements Interceptor {
         HttpUrl url = request.url();
 
         HttpUrl urlBuilder = url.newBuilder()
-                .addQueryParameter("apiKey", RequestEncodingUtils.encode(TS, PUBLIC_KEY))
+                .addQueryParameter("ts", TS)
+                .addQueryParameter("apikey", PUBLIC_KEY)
+                .addQueryParameter("hash", RequestEncodingUtils.encode(TS, PUBLIC_KEY))
                 .build();
 
         Request newRequest = request.newBuilder().url(urlBuilder).build();

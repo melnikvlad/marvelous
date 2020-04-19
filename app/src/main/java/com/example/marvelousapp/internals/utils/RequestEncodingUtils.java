@@ -15,7 +15,7 @@ public final class RequestEncodingUtils {
         md5 encoding to get hashed api key.
         The api documentation says that md5 input should consist of "ts + privateKey + publicKey"
      */
-    public static String encode(int ts, @NonNull String publicKey) throws EncodeParamsException {
+    public static String encode(String ts, @NonNull String publicKey) throws EncodeParamsException {
         String input = new StringBuilder()
                 .append(ts)
                 .append(PRIVATE_KEY)

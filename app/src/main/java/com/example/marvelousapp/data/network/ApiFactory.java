@@ -1,6 +1,5 @@
 package com.example.marvelousapp.data.network;
 
-import com.example.marvelousapp.data.ApiService;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -17,13 +16,11 @@ public class ApiFactory {
     private ApiFactory() {
     }
 
-    public ApiFactory getInstance() {
-        synchronized (this) {
-            if (INSTANCE == null) {
-                INSTANCE = new ApiFactory();
-            }
-            return INSTANCE;
+    public static synchronized ApiFactory getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ApiFactory();
         }
+        return INSTANCE;
     }
 
     public ApiService create() {
