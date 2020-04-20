@@ -3,7 +3,7 @@ package com.example.marvelousapp.data.network;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.marvelousapp.data.models.characters.CharactersResponse;
+import com.example.marvelousapp.data.models.characters.response.CharactersResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

@@ -8,11 +8,9 @@
     tools:context=".ui.ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
 
-    <TextView
-        android:id="@+id/textViewMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.core.widget.NestedScrollView>

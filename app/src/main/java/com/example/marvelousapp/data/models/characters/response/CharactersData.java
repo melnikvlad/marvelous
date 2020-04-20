@@ -1,14 +1,15 @@
-package com.example.marvelousapp.data.models.characters;
+package com.example.marvelousapp.data.models.characters.response;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.marvelousapp.data.models.characters.response.CharacterInfo;
 import com.example.marvelousapp.internals.utils.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-final class CharactersData {
+public final class CharactersData {
     @SerializedName("offset")
     @Nullable
     private Integer offset;
@@ -23,7 +24,7 @@ final class CharactersData {
     private Integer count;
     @SerializedName("results")
     @Nullable
-    private List<Character> characters;
+    private List<CharacterInfo> characters;
 
     @Nullable
     public Integer getOffset() {
@@ -46,7 +47,7 @@ final class CharactersData {
     }
 
     @Nullable
-    public List<Character> getCharacters() {
+    public List<CharacterInfo> getCharacters() {
         return characters;
     }
 

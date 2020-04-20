@@ -1,4 +1,4 @@
-package com.example.marvelousapp.data.models.characters;
+package com.example.marvelousapp.data.models.characters.response;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

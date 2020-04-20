@@ -1,4 +1,4 @@
-package com.example.marvelousapp.data.models.characters;
+package com.example.marvelousapp.data.models.characters.response;
 
 import androidx.annotation.Nullable;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-final class CharacterReferences {
+public final class CharacterReferences {
     @SerializedName("available")
     @Nullable
     private Integer available;

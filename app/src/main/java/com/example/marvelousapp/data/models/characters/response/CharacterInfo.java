@@ -1,4 +1,4 @@
-package com.example.marvelousapp.data.models.characters;
+package com.example.marvelousapp.data.models.characters.response;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.example.marvelousapp.internals.utils.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
-final class Character {
+public final class CharacterInfo {
     @SerializedName("id")
     @Nullable
     private Integer id;
@@ -77,7 +77,7 @@ final class Character {
     public String toString() {
         final String result = new StringBuilder()
                 .append(StringUtils.DOUBLE_NEW_LINE)
-                .append("Character")
+                .append("CharacterInfo")
                 .append(StringUtils.COLON_WITH_SPACE)
                 .append(StringUtils.NEW_LINE)
                 .append(id != null ? id : "No id")

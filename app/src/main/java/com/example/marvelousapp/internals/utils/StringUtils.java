@@ -1,6 +1,7 @@
 package com.example.marvelousapp.internals.utils;
 
 public final class StringUtils {
+    public static final String EMPTY = "";
     public static final String SPACE = " ";
     public static final String DOT = ".";
     public static final String DOT_WITH_SPACE = ". ";
