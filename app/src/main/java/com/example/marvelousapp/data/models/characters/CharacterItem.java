@@ -3,20 +3,22 @@ package com.example.marvelousapp.data.models.characters;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.marvelousapp.data.models.characters.response.CharacterImage;
+
 public final class CharacterItem {
     private int id;
     @NonNull
     private String name;
     @Nullable
     private String description;
-    @NonNull
-    private String imageUrl;
+    @Nullable
+    private CharacterImage image;
 
-    public CharacterItem(int id, @NonNull String name, @Nullable String description, @Nullable String imageUrl) {
+    public CharacterItem(int id, @NonNull String name, @Nullable String description, @Nullable CharacterImage image) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
     public int getId() {
@@ -33,8 +35,8 @@ public final class CharacterItem {
         return description;
     }
 
-    @NonNull
-    public String getImageUrl() {
-        return imageUrl;
+    @Nullable
+    public CharacterImage getImage() {
+        return image;
     }
 }

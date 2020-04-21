@@ -6,10 +6,10 @@ import com.example.marvelousapp.data.models.characters.CharacterItem;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 
 public interface CharactersRepository {
 
     @NonNull
-    Single<List<CharacterItem>> getCharacters();
+    Observable<List<CharacterItem>> getCharacters();
 }

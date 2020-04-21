@@ -27,7 +27,6 @@ public class GetCharactersUseCaseImpl implements GetCharactersUseCase {
     @Override
     public Observable<List<CharacterItem>> getCharacters() {
         return charactersRepository.getCharacters()
-                .toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

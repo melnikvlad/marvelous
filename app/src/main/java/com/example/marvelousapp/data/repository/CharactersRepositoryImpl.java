@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public final class CharactersRepositoryImpl implements CharactersRepository {
@@ -33,7 +34,7 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
 
     @NonNull
     @Override
-    public Single<List<CharacterItem>> getCharacters() {
+    public Observable<List<CharacterItem>> getCharacters() {
         return apiService.getCharacters(DEFAULT_LIMIT, null, null)
                 .map(this::parseResponse);
     }
@@ -56,7 +57,7 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
                             character.getId(),
                             character.getName(),
                             character.getDescription(),
-                            parseImagePath(character.getImage()));
+                            checkImage(character.getImage()));
                     result.add(item);
                 }
             }
@@ -67,15 +68,10 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
     }
 
     @Nullable
-    private String parseImagePath(@NonNull CharacterImage characterImage) {
+    private CharacterImage checkImage(@NonNull CharacterImage characterImage) {
         if (characterImage.getPath() == null || characterImage.getExtension() == null) {
             return null;
-        } else {
-            return new StringBuilder()
-                    .append(characterImage.getPath())
-                    .append(StringUtils.DOT)
-                    .append(characterImage.getExtension())
-                    .toString();
         }
+        return characterImage;
     }
 }

@@ -47,7 +47,7 @@ public class ScrollingActivity extends AppCompatActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         final Fragment mainFragment = new MainFragment();
         fragmentManager.beginTransaction()
-                .add(container.getId(), mainFragment, MainFragment.TAG)
+                .replace(container.getId(), mainFragment, MainFragment.TAG)
                 .commit();
     }
 

@@ -1,8 +1,12 @@
 package com.example.marvelousapp.data.models.characters.response;
 
+import android.media.Image;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.marvelousapp.data.models.characters.CharacterItem;
+import com.example.marvelousapp.internals.utils.ImageUtils;
 import com.example.marvelousapp.internals.utils.StringUtils;
 import com.google.gson.annotations.SerializedName;
 

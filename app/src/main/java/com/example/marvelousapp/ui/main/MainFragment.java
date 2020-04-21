@@ -6,16 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.marvelousapp.MarvelousApplication;
 import com.example.marvelousapp.R;
 import com.example.marvelousapp.data.models.characters.CharacterItem;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -29,17 +33,25 @@ public final class MainFragment extends Fragment {
     ViewModelFactory viewModelFactory;
     @Nullable
     private MainViewModel mainViewModel;
+    @NonNull
+    private MainAdapter adapter;
 
-    TextView tv;
     ProgressBar progress;
+    RecyclerView recyclerView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        adapter = new MainAdapter();
+    }
 
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         MarvelousApplication.getMainComponent().inject(this);
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        tv = view.findViewById(R.id.result);
         progress = view.findViewById(R.id.progress);
+        recyclerView = view.findViewById(R.id.recyclerView);
         return view;
     }
 
@@ -63,9 +75,14 @@ public final class MainFragment extends Fragment {
 
     private void renderLoaderView(boolean isLoading) {
         progress.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(isLoading ? View.GONE : View.VISIBLE);
     }
 
     private void renderCharactersView(@NonNull List<CharacterItem> characters) {
-        tv.setText(characters.toString());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        adapter.setData(characters);
     }
 }
