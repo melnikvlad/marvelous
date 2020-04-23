@@ -5,19 +5,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.data.models.characters.CharacterItem;
-import com.example.marvelousapp.data.models.characters.CharacterResult;
-import com.example.marvelousapp.data.models.characters.ResponseErrorResult;
 import com.example.marvelousapp.domain.characters.GetCharactersUseCase;
 import com.example.marvelousapp.internals.exceptions.EncodeParamsException;
 import com.example.marvelousapp.internals.exceptions.NoInternetException;
 import com.example.marvelousapp.internals.exceptions.ResponseErrorException;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -30,8 +25,8 @@ public final class MainViewModel extends ViewModel {
     private MutableLiveData<Boolean> mutableIsLoading = new MutableLiveData<>();
     private LiveData<Boolean> isLoading = mutableIsLoading;
 
-    private MutableLiveData<List<CharacterItem>> mutableCharacters = new MutableLiveData<>();
-    private LiveData<List<CharacterItem>> characters = mutableCharacters;
+    private MutableLiveData<List<BaseItem>> mutableCharacters = new MutableLiveData<>();
+    private LiveData<List<BaseItem>> characters = mutableCharacters;
 
     MainViewModel(@NonNull GetCharactersUseCase getCharactersUseCase) {
         this.getCharactersUseCase = getCharactersUseCase;
@@ -71,11 +66,11 @@ public final class MainViewModel extends ViewModel {
         subscriptions.clear();
     }
 
-    LiveData<List<CharacterItem>> getCharacters() {
+    public LiveData<List<BaseItem>> getCharacters() {
         return characters;
     }
 
-    LiveData<Boolean> isLoading() {
+    public LiveData<Boolean> isLoading() {
         return isLoading;
     }
 }

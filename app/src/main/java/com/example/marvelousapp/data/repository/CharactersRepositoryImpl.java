@@ -3,9 +3,13 @@ package com.example.marvelousapp.data.repository;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.marvelousapp.data.models.BaseItem;
+import com.example.marvelousapp.data.models.ReferenceData;
 import com.example.marvelousapp.data.models.characters.response.CharacterImage;
 import com.example.marvelousapp.data.models.characters.response.CharacterInfo;
 import com.example.marvelousapp.data.models.characters.CharacterItem;
+import com.example.marvelousapp.data.models.characters.response.CharacterReference;
+import com.example.marvelousapp.data.models.characters.response.CharacterReferences;
 import com.example.marvelousapp.data.models.characters.response.CharactersData;
 import com.example.marvelousapp.data.models.characters.response.CharactersResponse;
 import com.example.marvelousapp.data.network.ApiService;
@@ -22,7 +26,6 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public final class CharactersRepositoryImpl implements CharactersRepository {
-    private static final int DEFAULT_LIMIT = 50;
 
     @NonNull
     private ApiService apiService;
@@ -34,30 +37,33 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
 
     @NonNull
     @Override
-    public Observable<List<CharacterItem>> getCharacters() {
-        return apiService.getCharacters(DEFAULT_LIMIT, null, null)
+    public Observable<List<BaseItem>> getCharacters(@NonNull Integer count) {
+        return apiService.getCharacters(count, null, null)
                 .map(this::parseResponse);
     }
 
     @NonNull
-    private List<CharacterItem> parseResponse(@NonNull CharactersResponse response) throws ResponseErrorException {
+    private List<BaseItem> parseResponse(@NonNull CharactersResponse response) throws ResponseErrorException {
         final CharactersData data = response.getData();
 
         if (data == null)
             throw new ResponseErrorException("Something went wrong! Request error. Try again later.");
 
         if (data.getCharacters() != null && data.getCount() != null && data.getCount() > 0) {
-            final List<CharacterItem> result = new ArrayList<>();
+            final List<BaseItem> result = new ArrayList<>();
             final List<CharacterInfo> characters = data.getCharacters();
 
             for (CharacterInfo character : characters) {
-                // Show characters with the name and image not equals null
                 if (character.getId() != null && character.getName() != null && character.getImage() != null) {
                     final CharacterItem item = new CharacterItem(
                             character.getId(),
                             character.getName(),
                             character.getDescription(),
-                            checkImage(character.getImage()));
+                            checkImage(character.getImage()),
+                            parseReference(character.getComics(), ReferenceData.Type.COMICS),
+                            parseReference(character.getStories(), ReferenceData.Type.STORIES),
+                            parseReference(character.getSeries(), ReferenceData.Type.SERIES),
+                            parseReference(character.getEvents(), ReferenceData.Type.EVENTS));
                     result.add(item);
                 }
             }
@@ -73,5 +79,23 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
             return null;
         }
         return characterImage;
+    }
+
+    @Nullable
+    private List<ReferenceData> parseReference(@Nullable CharacterReferences references, @NonNull ReferenceData.Type type) {
+        if (references != null && references.getItems() != null) {
+            final List<ReferenceData> result = new ArrayList<>();
+            for (CharacterReference reference : references.getItems()) {
+                int id = reference.getUri() != null ? StringUtils.parseReferenceId(reference.getUri()) : -1;
+                final String name = reference.getName() != null ? reference.getName() : StringUtils.EMPTY;
+
+                if (id != -1 && !StringUtils.EMPTY.equals(name)) {
+                    final ReferenceData referenceData = new ReferenceData(type, id, name);
+                    result.add(referenceData);
+                }
+            }
+            return result;
+        } else
+            return null;
     }
 }

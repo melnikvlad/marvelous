@@ -1,5 +1,7 @@
 package com.example.marvelousapp.internals.utils;
 
+import androidx.annotation.NonNull;
+
 public final class StringUtils {
     public static final String EMPTY = "";
     public static final String SPACE = " ";
@@ -14,4 +16,9 @@ public final class StringUtils {
     public static final String SLASH = "/";
     public static final String NEW_LINE = "\n";
     public static final String DOUBLE_NEW_LINE = "\n\n";
+
+    public static int parseReferenceId(@NonNull String url) {
+        int lastSlashPos = url.lastIndexOf(SLASH);
+        return Integer.valueOf(url.substring(lastSlashPos + 1));
+    }
 }

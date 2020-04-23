@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.marvelousapp.MarvelousApplication;
 import com.example.marvelousapp.R;
+import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.data.models.characters.CharacterItem;
+import com.example.marvelousapp.databinding.FragmentMainBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -35,8 +38,8 @@ public final class MainFragment extends Fragment {
     private MainViewModel mainViewModel;
     @NonNull
     private MainAdapter adapter;
+    private FragmentMainBinding binding;
 
-    ProgressBar progress;
     RecyclerView recyclerView;
 
     @Override
@@ -49,10 +52,10 @@ public final class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         MarvelousApplication.getMainComponent().inject(this);
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        progress = view.findViewById(R.id.progress);
-        recyclerView = view.findViewById(R.id.recyclerView);
-        return view;
+        binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_main, container, false);
+        recyclerView = binding.recyclerView;
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        return binding.getRoot();
     }
 
     @Override
@@ -60,6 +63,7 @@ public final class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null) {
             mainViewModel = new ViewModelProvider(getActivity(), viewModelFactory).get(MainViewModel.class);
+            binding.setViewModel(mainViewModel);
         }
     }
 
@@ -68,21 +72,17 @@ public final class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (mainViewModel != null) {
             mainViewModel.getCharacters().observe(getViewLifecycleOwner(), this::renderCharactersView);
-            mainViewModel.isLoading().observe(getViewLifecycleOwner(), this::renderLoaderView);
             mainViewModel.load();
         }
     }
 
-    private void renderLoaderView(boolean isLoading) {
-        progress.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        recyclerView.setVisibility(isLoading ? View.GONE : View.VISIBLE);
-    }
-
-    private void renderCharactersView(@NonNull List<CharacterItem> characters) {
+    private void renderCharactersView(@NonNull List<BaseItem> characters) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.setData(characters);
+        adapter.addMoreButton();
+        adapter.notifyDataSetChanged();
     }
 }
