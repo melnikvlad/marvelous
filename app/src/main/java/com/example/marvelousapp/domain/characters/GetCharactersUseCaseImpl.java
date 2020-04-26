@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.data.repository.CharactersRepository;
+import com.example.marvelousapp.ui.main.adapter.CharactersListItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,10 +27,10 @@ public class GetCharactersUseCaseImpl implements GetCharactersUseCase {
 
     @NonNull
     @Override
-    public Observable<List<BaseItem>> getCharacters() {
+    public Observable<CharactersListItem> getCharacters() {
         return charactersRepository.getCharacters(DEFAULT_LIMIT)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .map(CharactersListItem::new)
+                .subscribeOn(Schedulers.io());
     }
 
     @NonNull

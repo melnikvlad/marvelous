@@ -6,6 +6,8 @@ public enum ImageSizeType {
 
     PORTRAIT_SMALL("portrait_medium"),
 
+    PORTRAIT_XLARGE("portrait_xlarge"),
+
     PORTRAIT_FULL("portrait_fantastic"),
 
     LANDSCAPE_FULL("landscape_incredible");

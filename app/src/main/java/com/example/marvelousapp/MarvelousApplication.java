@@ -6,6 +6,7 @@ import com.example.marvelousapp.di.DaggerMainComponent;
 import com.example.marvelousapp.di.MainComponent;
 import com.example.marvelousapp.di.modules.AppModule;
 import com.example.marvelousapp.di.modules.CharactersDataModule;
+import com.example.marvelousapp.di.modules.ComicsDataModule;
 import com.example.marvelousapp.di.modules.NetworkModule;
 
 public final class MarvelousApplication extends Application {
@@ -18,6 +19,7 @@ public final class MarvelousApplication extends Application {
         mainComponent = DaggerMainComponent.builder()
                 .appModule(new AppModule(this))
                 .charactersDataModule(new CharactersDataModule())
+                .comicsDataModule(new ComicsDataModule())
                 .networkModule(new NetworkModule())
                 .build();
     }

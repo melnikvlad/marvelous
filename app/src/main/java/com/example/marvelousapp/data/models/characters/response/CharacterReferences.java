@@ -2,6 +2,7 @@ package com.example.marvelousapp.data.models.characters.response;
 
 import androidx.annotation.Nullable;
 
+import com.example.marvelousapp.data.models.common.ReferenceInfo;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public final class CharacterReferences {
     private String uri;
     @SerializedName("items")
     @Nullable
-    private List<CharacterReference> items;
+    private List<ReferenceInfo> items;
 
     @Nullable
     public Integer getAvailable() {
@@ -36,7 +37,7 @@ public final class CharacterReferences {
     }
 
     @Nullable
-    public List<CharacterReference> getItems() {
+    public List<ReferenceInfo> getItems() {
         return items;
     }
 }

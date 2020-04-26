@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 
 import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.data.models.ReferenceData;
-import com.example.marvelousapp.data.models.characters.response.CharacterImage;
+import com.example.marvelousapp.data.models.common.ImageData;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public final class CharacterItem extends BaseItem {
     @Nullable
     private String description;
     @Nullable
-    private CharacterImage image;
+    private ImageData image;
     @Nullable
     private List<ReferenceData> comics;
     @Nullable
@@ -26,7 +26,7 @@ public final class CharacterItem extends BaseItem {
     @Nullable
     private List<ReferenceData> events;
 
-    public CharacterItem(int id, @NonNull String name, @Nullable String description, @Nullable CharacterImage image,
+    public CharacterItem(int id, @NonNull String name, @Nullable String description, @Nullable ImageData image,
                          @Nullable List<ReferenceData> comics, @Nullable List<ReferenceData> stories,
                          @Nullable List<ReferenceData> series, @Nullable List<ReferenceData> events) {
         super(ListItemType.CHARACTER);
@@ -55,7 +55,7 @@ public final class CharacterItem extends BaseItem {
     }
 
     @Nullable
-    public CharacterImage getImage() {
+    public ImageData getImage() {
         return image;
     }
 

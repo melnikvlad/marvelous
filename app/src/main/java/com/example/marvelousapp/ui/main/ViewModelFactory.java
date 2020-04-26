@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.marvelousapp.MarvelousApplication;
 import com.example.marvelousapp.domain.characters.GetCharactersUseCase;
+import com.example.marvelousapp.domain.comics.GetComicsUseCase;
 
 import javax.inject.Inject;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
     @Inject
     GetCharactersUseCase getCharactersUseCase;
+    @Inject
+    GetComicsUseCase getComicsUseCase;
 
     @SuppressWarnings("unchecked")
     @NonNull
@@ -19,7 +22,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         MarvelousApplication.getMainComponent().inject(this);
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) new MainViewModel(getCharactersUseCase);
+            return (T) new MainViewModel(getCharactersUseCase, getComicsUseCase);
         }
         throw new IllegalArgumentException("Unknown view model class");
     }

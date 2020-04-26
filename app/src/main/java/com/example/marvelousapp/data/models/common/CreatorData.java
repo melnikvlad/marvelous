@@ -1,20 +1,20 @@
-package com.example.marvelousapp.data.models.characters.response;
+package com.example.marvelousapp.data.models.common;
 
 import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-public final class CharacterReference {
-    @SerializedName("resourceURI")
+public final class CreatorData {
+    @SerializedName("role")
     @Nullable
-    private String uri;
+    private String role;
     @SerializedName("name")
     @Nullable
     private String name;
 
     @Nullable
-    public String getUri() {
-        return uri;
+    public String getRole() {
+        return role;
     }
 
     @Nullable

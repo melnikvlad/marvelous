@@ -1,4 +1,4 @@
-package com.example.marvelousapp.data.models.characters.response;
+package com.example.marvelousapp.data.models.common;
 
 import android.media.Image;
 
@@ -10,7 +10,7 @@ import com.example.marvelousapp.internals.utils.ImageUtils;
 import com.example.marvelousapp.internals.utils.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
-public final class CharacterImage {
+public final class ImageData {
     @SerializedName("path")
     @Nullable
     private String path;

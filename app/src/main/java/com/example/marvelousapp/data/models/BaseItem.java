@@ -17,8 +17,9 @@ public class BaseItem {
 
     public enum ListItemType {
         CHARACTER(0),
-        TITLE(1),
-        MORE(2);
+        COMICS(1),
+        TITLE(2),
+        MORE(3);
 
         private int id;
 

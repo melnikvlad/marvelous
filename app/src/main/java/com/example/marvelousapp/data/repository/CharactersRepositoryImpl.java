@@ -4,26 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.marvelousapp.data.models.BaseItem;
-import com.example.marvelousapp.data.models.ReferenceData;
-import com.example.marvelousapp.data.models.characters.response.CharacterImage;
+import com.example.marvelousapp.data.models.common.ImageData;
 import com.example.marvelousapp.data.models.characters.response.CharacterInfo;
 import com.example.marvelousapp.data.models.characters.CharacterItem;
-import com.example.marvelousapp.data.models.characters.response.CharacterReference;
+import com.example.marvelousapp.data.models.common.ReferenceInfo;
 import com.example.marvelousapp.data.models.characters.response.CharacterReferences;
 import com.example.marvelousapp.data.models.characters.response.CharactersData;
 import com.example.marvelousapp.data.models.characters.response.CharactersResponse;
 import com.example.marvelousapp.data.network.ApiService;
 import com.example.marvelousapp.internals.exceptions.ResponseErrorException;
+import com.example.marvelousapp.internals.utils.ParseUtils;
 import com.example.marvelousapp.internals.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 public final class CharactersRepositoryImpl implements CharactersRepository {
 
@@ -60,10 +58,10 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
                             character.getName(),
                             character.getDescription(),
                             checkImage(character.getImage()),
-                            parseReference(character.getComics(), ReferenceData.Type.COMICS),
-                            parseReference(character.getStories(), ReferenceData.Type.STORIES),
-                            parseReference(character.getSeries(), ReferenceData.Type.SERIES),
-                            parseReference(character.getEvents(), ReferenceData.Type.EVENTS));
+                            ParseUtils.parseReference(character.getComics().getItems(), com.example.marvelousapp.data.models.ReferenceData.Type.COMICS),
+                            ParseUtils.parseReference(character.getStories().getItems(), com.example.marvelousapp.data.models.ReferenceData.Type.STORIES),
+                            ParseUtils.parseReference(character.getSeries().getItems(), com.example.marvelousapp.data.models.ReferenceData.Type.SERIES),
+                            ParseUtils.parseReference(character.getEvents().getItems(), com.example.marvelousapp.data.models.ReferenceData.Type.EVENTS));
                     result.add(item);
                 }
             }
@@ -74,28 +72,10 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
     }
 
     @Nullable
-    private CharacterImage checkImage(@NonNull CharacterImage characterImage) {
-        if (characterImage.getPath() == null || characterImage.getExtension() == null) {
+    private ImageData checkImage(@NonNull ImageData imageData) {
+        if (imageData.getPath() == null || imageData.getExtension() == null) {
             return null;
         }
-        return characterImage;
-    }
-
-    @Nullable
-    private List<ReferenceData> parseReference(@Nullable CharacterReferences references, @NonNull ReferenceData.Type type) {
-        if (references != null && references.getItems() != null) {
-            final List<ReferenceData> result = new ArrayList<>();
-            for (CharacterReference reference : references.getItems()) {
-                int id = reference.getUri() != null ? StringUtils.parseReferenceId(reference.getUri()) : -1;
-                final String name = reference.getName() != null ? reference.getName() : StringUtils.EMPTY;
-
-                if (id != -1 && !StringUtils.EMPTY.equals(name)) {
-                    final ReferenceData referenceData = new ReferenceData(type, id, name);
-                    result.add(referenceData);
-                }
-            }
-            return result;
-        } else
-            return null;
+        return imageData;
     }
 }

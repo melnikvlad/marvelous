@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.marvelousapp.MarvelousApplication;
 import com.example.marvelousapp.R;
 import com.example.marvelousapp.data.models.BaseItem;
-import com.example.marvelousapp.data.models.characters.CharacterItem;
 import com.example.marvelousapp.databinding.FragmentMainBinding;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.marvelousapp.ui.main.adapter.HeaderListItem;
+import com.example.marvelousapp.ui.main.adapter.MainAdapter;
+import com.example.marvelousapp.ui.main.adapter.ParentListItem;
 
 import java.util.List;
 
@@ -45,7 +42,7 @@ public final class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new MainAdapter();
+        adapter = new MainAdapter(getContext());
     }
 
     @NonNull
@@ -62,6 +59,10 @@ public final class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null) {
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setOrientation(RecyclerView.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
             mainViewModel = new ViewModelProvider(getActivity(), viewModelFactory).get(MainViewModel.class);
             binding.setViewModel(mainViewModel);
         }
@@ -72,17 +73,17 @@ public final class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (mainViewModel != null) {
             mainViewModel.getCharacters().observe(getViewLifecycleOwner(), this::renderCharactersView);
+            mainViewModel.getComics().observe(getViewLifecycleOwner(), this::renderComicsView);
             mainViewModel.load();
         }
     }
 
-    private void renderCharactersView(@NonNull List<BaseItem> characters) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        adapter.setData(characters);
-        adapter.addMoreButton();
-        adapter.notifyDataSetChanged();
+    private void renderCharactersView(@NonNull ParentListItem characters) {
+
+        adapter.add(new HeaderListItem(R.string.text_characters_header), characters);
+    }
+
+    private void renderComicsView(@NonNull ParentListItem comics) {
+        adapter.add(new HeaderListItem(R.string.text_comics_header), comics);
     }
 }

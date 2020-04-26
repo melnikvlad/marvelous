@@ -3,6 +3,7 @@ package com.example.marvelousapp.data.models.characters.response;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.marvelousapp.data.models.common.ImageData;
 import com.example.marvelousapp.internals.utils.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
@@ -18,7 +19,7 @@ public final class CharacterInfo {
     private String description;
     @SerializedName("thumbnail")
     @Nullable
-    private CharacterImage image;
+    private ImageData image;
     @SerializedName("comics")
     @Nullable
     private CharacterReferences comics;
@@ -48,7 +49,7 @@ public final class CharacterInfo {
     }
 
     @Nullable
-    public CharacterImage getImage() {
+    public ImageData getImage() {
         return image;
     }
 

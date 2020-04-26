@@ -90,4 +90,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="text_characters_header">Characters</string>
+    <string name="text_comics_header">Comics</string>
+    <string name="text_header_see_more">See all</string>
 </resources>
