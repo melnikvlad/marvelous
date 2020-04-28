@@ -15,13 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.marvelousapp.MarvelousApplication;
 import com.example.marvelousapp.R;
-import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.databinding.FragmentMainBinding;
-import com.example.marvelousapp.ui.main.adapter.HeaderListItem;
+import com.example.marvelousapp.ui.main.adapter.items.HeaderListItem;
 import com.example.marvelousapp.ui.main.adapter.MainAdapter;
-import com.example.marvelousapp.ui.main.adapter.ParentListItem;
-
-import java.util.List;
+import com.example.marvelousapp.ui.main.adapter.items.ParentListItem;
 
 import javax.inject.Inject;
 

@@ -2,4 +2,8 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="comics_card_width">145dp</dimen>
+    <dimen name="comics_card_height">190dp</dimen>
+    <dimen name="character_card_width">120dp</dimen>
+    <dimen name="character_card_height">140dp</dimen>
 </resources>

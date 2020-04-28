@@ -3,7 +3,7 @@ package com.example.marvelousapp.domain.comics;
 import androidx.annotation.NonNull;
 
 import com.example.marvelousapp.data.repository.ComicsRepository;
-import com.example.marvelousapp.ui.main.adapter.ComicsListItem;
+import com.example.marvelousapp.ui.main.adapter.items.ComicsListItem;
 
 
 import javax.inject.Inject;

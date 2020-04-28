@@ -1,4 +1,4 @@
-package com.example.marvelousapp.ui.main.adapter;
+package com.example.marvelousapp.ui.main.adapter.items;
 
 import androidx.annotation.StringRes;
 
@@ -11,7 +11,7 @@ public final class HeaderListItem extends ParentListItem {
         this.resId = resId;
     }
 
-    int getResId() {
+    public int getResId() {
         return resId;
     }
 }

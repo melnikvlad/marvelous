@@ -1,4 +1,4 @@
-package com.example.marvelousapp.ui.main.adapter;
+package com.example.marvelousapp.ui.main.adapter.items;
 
 import androidx.annotation.NonNull;
 

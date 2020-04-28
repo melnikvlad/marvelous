@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.data.repository.CharactersRepository;
-import com.example.marvelousapp.ui.main.adapter.CharactersListItem;
+import com.example.marvelousapp.ui.main.adapter.items.CharactersListItem;
 
 import java.util.List;
 

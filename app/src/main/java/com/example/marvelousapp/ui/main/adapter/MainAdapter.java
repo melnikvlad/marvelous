@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.marvelousapp.R;
+import com.example.marvelousapp.ui.main.adapter.items.ComicsListItem;
+import com.example.marvelousapp.ui.main.adapter.items.HeaderListItem;
+import com.example.marvelousapp.ui.main.adapter.items.ParentListItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,11 +91,13 @@ public final class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         }
 
-        void bind(@NonNull ParentListItem baseItems) {
-            if (baseItems.getData() != null) {
-                if (baseItems.getData().size() > 0) {
-                    BaseChildAdapter childAdapter = new BaseChildAdapter();
-                    childAdapter.setData(baseItems.getData());
+        void bind(@NonNull ParentListItem item) {
+            if (item.getData() != null) {
+                if (item.getData().size() > 0) {
+                    BaseChildAdapter childAdapter = item instanceof ComicsListItem
+                            ? new ComicsAdapter()
+                            : new CharacterAdapter();
+                    childAdapter.setData(item.getData());
                     childAdapter.addMoreButton();
                     recyclerView.setAdapter(childAdapter);
                 }
