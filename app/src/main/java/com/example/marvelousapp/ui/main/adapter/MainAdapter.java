@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.marvelousapp.R;
+import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.ui.main.adapter.items.ComicsListItem;
 import com.example.marvelousapp.ui.main.adapter.items.HeaderListItem;
 import com.example.marvelousapp.ui.main.adapter.items.ParentListItem;
@@ -19,12 +20,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import rx.functions.Action1;
+
 public final class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<ParentListItem> items = new ArrayList<>();
+    @NonNull
+    private Action1<BaseItem> onCharacterClickAction;
+    @NonNull
+    private Action1<BaseItem> onComicsClickAction;
 
-    public MainAdapter(Context context) {
+    public MainAdapter(Context context,
+                       @NonNull
+                       Action1<BaseItem> onCharacterClickAction,
+                       @NonNull
+                       Action1<BaseItem> onComicsClickAction) {
         this.context = context;
+        this.onCharacterClickAction = onCharacterClickAction;
+        this.onComicsClickAction = onComicsClickAction;
     }
 
     public void add(@NonNull ParentListItem... listItemArgs) {
@@ -95,8 +108,8 @@ public final class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (item.getData() != null) {
                 if (item.getData().size() > 0) {
                     BaseChildAdapter childAdapter = item instanceof ComicsListItem
-                            ? new ComicsAdapter()
-                            : new CharacterAdapter();
+                            ? new ComicsAdapter(onComicsClickAction)
+                            : new CharacterAdapter(onCharacterClickAction);
                     childAdapter.setData(item.getData());
                     childAdapter.addMoreButton();
                     recyclerView.setAdapter(childAdapter);

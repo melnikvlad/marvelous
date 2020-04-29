@@ -16,7 +16,13 @@ import com.example.marvelousapp.internals.enums.ImageSizeType;
 import com.example.marvelousapp.internals.utils.ImageUtils;
 import com.squareup.picasso.Picasso;
 
+import rx.functions.Action1;
+
 public final class ComicsAdapter extends BaseChildAdapter {
+
+    ComicsAdapter(@NonNull Action1<BaseItem> onComicsClickAction) {
+        onCardClickAction = onComicsClickAction;
+    }
 
     @Override
     protected int getMoreButtonLayoutId() {
@@ -39,8 +45,7 @@ public final class ComicsAdapter extends BaseChildAdapter {
             if (list.size() > 0) {
                 final ComicsItem item = (ComicsItem) list.get(holder.getAdapterPosition());
                 ((ComicsViewHolder) holder).bind(item);
-                ((ComicsViewHolder) holder).itemView.setOnClickListener((v) -> {
-                });
+                ((ComicsViewHolder) holder).itemView.setOnClickListener((v) -> onCardClickAction.call(item));
             }
         } else {
             super.onBindViewHolder(holder, position);

@@ -16,4 +16,7 @@ public interface GetCharactersUseCase {
 
     @NonNull
     Observable<List<BaseItem>> getCharacters(@NonNull Integer count);
+
+    @NonNull
+    Observable<BaseItem> getCharacter(int characterId);
 }

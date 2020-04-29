@@ -23,7 +23,7 @@ public interface ApiService {
                                                  @Nullable @Query("nameStartsWith") String name);
 
     @GET("characters/{id}")
-    void getCharacter(@Path("id") int characterId);
+    Observable<CharactersResponse> getCharacter(@Path("id") int characterId);
 
     @GET("characters/{id}/comics")
     void getCharacterComics(@Path("id") int characterId);

@@ -40,4 +40,10 @@ public class GetCharactersUseCaseImpl implements GetCharactersUseCase {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @NonNull
+    @Override
+    public Observable<BaseItem> getCharacter(int characterId) {
+        return charactersRepository.getCharacter(characterId);
+    }
 }

@@ -22,9 +22,12 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.functions.Action1;
+
 public abstract class BaseChildAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @NonNull
     protected List<BaseItem> list = new ArrayList<>();
+    protected Action1<BaseItem> onCardClickAction;
 
     @LayoutRes
     protected abstract int getMoreButtonLayoutId();

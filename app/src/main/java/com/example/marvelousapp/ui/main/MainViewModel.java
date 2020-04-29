@@ -69,10 +69,14 @@ public final class MainViewModel extends ViewModel {
                 ));
     }
 
+    void clearSubscriptions() {
+        subscriptions.clear();
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
-        subscriptions.clear();
+        clearSubscriptions();
     }
 
     public LiveData<ParentListItem> getCharacters() {

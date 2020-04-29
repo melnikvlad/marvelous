@@ -10,7 +10,9 @@ import com.example.marvelousapp.internals.utils.ImageUtils;
 import com.example.marvelousapp.internals.utils.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
-public final class ImageData {
+import java.io.Serializable;
+
+public final class ImageData implements Serializable {
     @SerializedName("path")
     @Nullable
     private String path;

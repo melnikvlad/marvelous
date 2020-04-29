@@ -41,6 +41,12 @@ public final class CharactersRepositoryImpl implements CharactersRepository {
     }
 
     @NonNull
+    @Override
+    public Observable<BaseItem> getCharacter(int characterId) {
+        return null;
+    }
+
+    @NonNull
     private List<BaseItem> parseResponse(@NonNull CharactersResponse response) throws ResponseErrorException {
         final CharactersData data = response.getData();
 

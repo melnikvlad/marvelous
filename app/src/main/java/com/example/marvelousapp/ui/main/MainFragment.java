@@ -1,5 +1,6 @@
 package com.example.marvelousapp.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.marvelousapp.MarvelousApplication;
 import com.example.marvelousapp.R;
+import com.example.marvelousapp.data.models.BaseItem;
+import com.example.marvelousapp.data.models.characters.CharacterItem;
+import com.example.marvelousapp.data.models.comics.ComicsItem;
 import com.example.marvelousapp.databinding.FragmentMainBinding;
 import com.example.marvelousapp.ui.main.adapter.items.HeaderListItem;
 import com.example.marvelousapp.ui.main.adapter.MainAdapter;
@@ -33,13 +37,25 @@ public final class MainFragment extends Fragment {
     @NonNull
     private MainAdapter adapter;
     private FragmentMainBinding binding;
+    @Nullable
+    private OnOpenFragmentListener onOpenFragmentListener;
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnOpenFragmentListener) {
+            onOpenFragmentListener = (OnOpenFragmentListener) context;
+        } else {
+            throw new IllegalArgumentException("Activity doesn't implement listener yet");
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new MainAdapter(getContext());
+        adapter = new MainAdapter(getContext(), this::showCharacterFragment, (comicsItem) -> {});
     }
 
     @NonNull
@@ -75,12 +91,36 @@ public final class MainFragment extends Fragment {
         }
     }
 
-    private void renderCharactersView(@NonNull ParentListItem characters) {
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onOpenFragmentListener = null;
+    }
 
+    private void renderCharactersView(@NonNull ParentListItem characters) {
         adapter.add(new HeaderListItem(R.string.text_characters_header), characters);
     }
 
     private void renderComicsView(@NonNull ParentListItem comics) {
         adapter.add(new HeaderListItem(R.string.text_comics_header), comics);
+    }
+
+    private void showCharacterFragment(@NonNull BaseItem characterItem) {
+        if (onOpenFragmentListener != null) {
+            onOpenFragmentListener.showCharacterFragment((CharacterItem) characterItem);
+        }
+    }
+
+    private void showComicsFragment(@NonNull BaseItem comicsItem) {
+        if (onOpenFragmentListener != null) {
+            onOpenFragmentListener.showComicsFragment((ComicsItem) comicsItem);
+        }
+    }
+
+    public interface OnOpenFragmentListener {
+
+        void showCharacterFragment(@NonNull CharacterItem characterItem);
+
+        void showComicsFragment(@NonNull ComicsItem comicsItem);
     }
 }

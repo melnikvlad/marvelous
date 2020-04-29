@@ -7,9 +7,10 @@ import com.example.marvelousapp.data.models.BaseItem;
 import com.example.marvelousapp.data.models.ReferenceData;
 import com.example.marvelousapp.data.models.common.ImageData;
 
+import java.io.Serializable;
 import java.util.List;
 
-public final class CharacterItem extends BaseItem {
+public final class CharacterItem extends BaseItem  implements Serializable {
     private int id;
     @NonNull
     private String name;

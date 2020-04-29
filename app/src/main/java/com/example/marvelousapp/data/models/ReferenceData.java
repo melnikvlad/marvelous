@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.example.marvelousapp.internals.utils.StringUtils;
 
-public final class ReferenceData {
+import java.io.Serializable;
+
+public final class ReferenceData implements Serializable {
     @NonNull
     Type type;
     @NonNull

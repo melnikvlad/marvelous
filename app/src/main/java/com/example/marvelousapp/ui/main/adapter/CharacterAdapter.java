@@ -16,10 +16,16 @@ import com.example.marvelousapp.internals.enums.ImageSizeType;
 import com.example.marvelousapp.internals.utils.ImageUtils;
 import com.squareup.picasso.Picasso;
 
+import rx.functions.Action1;
+
 public final class CharacterAdapter extends BaseChildAdapter {
     @Override
     protected int getMoreButtonLayoutId() {
         return R.layout.card_characters_more_button;
+    }
+
+    CharacterAdapter(@NonNull Action1<BaseItem> onCharacterClickAction) {
+        onCardClickAction = onCharacterClickAction;
     }
 
     @NonNull
@@ -39,7 +45,7 @@ public final class CharacterAdapter extends BaseChildAdapter {
             if (list.size() > 0) {
                 final CharacterItem item = (CharacterItem) list.get(holder.getAdapterPosition());
                 ((CharacterViewHolder) holder).bind(item);
-                ((CharacterViewHolder) holder).itemView.setOnClickListener((v) -> { /* do nothing now */ });
+                ((CharacterViewHolder) holder).itemView.setOnClickListener((v) -> onCardClickAction.call(item));
             }
         } else {
             super.onBindViewHolder(holder, position);

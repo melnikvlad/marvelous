@@ -4,6 +4,7 @@ import com.example.marvelousapp.di.modules.AppModule;
 import com.example.marvelousapp.di.modules.CharactersDataModule;
 import com.example.marvelousapp.di.modules.ComicsDataModule;
 import com.example.marvelousapp.di.modules.NetworkModule;
+import com.example.marvelousapp.ui.character.CharacterFragment;
 import com.example.marvelousapp.ui.main.MainFragment;
 import com.example.marvelousapp.ui.main.ViewModelFactory;
 
@@ -16,6 +17,8 @@ import dagger.Component;
 public interface MainComponent {
 
     void inject(MainFragment mainFragment);
+
+    void inject(CharacterFragment characterFragment);
 
     void inject(ViewModelFactory viewModelFactory);
 
